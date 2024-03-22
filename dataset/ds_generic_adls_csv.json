@@ -23,7 +23,7 @@
 					"type": "Expression"
 				},
 				"folderPath": {
-					"value": "@dataset().p_target_filename",
+					"value": "@dataset().p_target_folder",
 					"type": "Expression"
 				},
 				"fileSystem": "landing"
