@@ -80,7 +80,7 @@
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "log_start",
+						"activity": "update_control_running",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -240,7 +240,7 @@
 							"type": "String"
 						},
 						"status_description": {
-							"value": "Started running Extract Task",
+							"value": "Task completed successfully",
 							"type": "String"
 						},
 						"task": {
@@ -310,7 +310,7 @@
 							"type": "String"
 						},
 						"status_description": {
-							"value": "Started running Extract Task",
+							"value": "Task failed",
 							"type": "String"
 						},
 						"task": {
@@ -333,6 +333,64 @@
 						},
 						"task_status": {
 							"value": "Error",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ln_azure_sql",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "update_control_running",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "log_start",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[control].[sp_update_job_control]",
+					"storedProcedureParameters": {
+						"job": {
+							"value": "load_customers",
+							"type": "String"
+						},
+						"job_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"task": {
+							"value": {
+								"value": "@pipeline().Pipeline",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"task_id": {
+							"value": {
+								"value": "@pipeline().RunId",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"task_status": {
+							"value": "Running",
 							"type": "String"
 						}
 					}
