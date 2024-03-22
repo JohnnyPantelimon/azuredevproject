@@ -90,7 +90,38 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "\nSelect src_sql, tgt_folder, tgt_filename\nfrom (\nSelect jtp.job, jtp.task, jtp.task_sequence, jtp.parameter, jtp.value\nfrom config.job_task_parameters jtp\njoin config.task_parameters tp on jtp.task = tp.task and jtp.parameter = tp.parameter\nand jtp.active = 'Y' and tp.active = 'Y' and tp.parameter_type = 'static'\nwhere jtp.job = 'load_customer' and jtp.task = 'pl_extract_from_sqldb'\n) n\nPIVOT \n(\n\tmax(value) for parameter in (src_sql, tgt_folder, tgt_filename)\n) as p\n",
+						"sqlReaderStoredProcedureName": "[control].[sp_task_parameters]",
+						"storedProcedureParameters": {
+							"job": {
+								"type": "String",
+								"value": "load_customer"
+							},
+							"job_id": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							},
+							"task": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().Pipeline",
+									"type": "Expression"
+								}
+							},
+							"task_id": {
+								"type": "String",
+								"value": {
+									"value": "@pipeline().RunId",
+									"type": "Expression"
+								}
+							},
+							"task_sequence": {
+								"type": "Int32",
+								"value": "1"
+							}
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
