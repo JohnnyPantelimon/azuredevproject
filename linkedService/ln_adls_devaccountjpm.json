@@ -1,0 +1,10 @@
+{
+	"name": "ln_adls_devaccountjpm",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://devaccountjpm.dfs.core.windows.net/"
+		}
+	}
+}
