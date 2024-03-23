@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "devadf018603"
+		},
+		"ln_azure_sql_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=devsqlserver8603.database.windows.net;Initial Catalog=dev-db"
+		},
+		"ln_dev_akv_properties_typeProperties_baseUrl": {
+			"value": "https://dev-akv-8603.vault.azure.net/"
+		},
+		"ln_azure_sql_properties_typeProperties_servicePrincipalId": {
+			"value": "a9edf515-d67b-4820-ae06-a0a55675fc31"
+		},
+		"ln_azure_sql_properties_typeProperties_tenant": {
+			"value": "9eafc177-552f-407a-a74f-be8d3198a3a5"
+		},
+		"ln_adls_devaccountjpm_properties_typeProperties_url": {
+			"value": "https://devaccountjpm.dfs.core.windows.net/"
+		}
+	}
+}
